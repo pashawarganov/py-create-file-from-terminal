@@ -17,7 +17,7 @@ def create_path() -> str:
     return args.file
 
 
-def create_file(file_path) -> None:
+def create_file(file_path: str) -> None:
     with open(file_path, "a") as file:
         file.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\n")
 
@@ -32,10 +32,15 @@ def create_file(file_path) -> None:
     print("<<<File created>>>")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-d', '--directories', nargs='+', help='List of directories')
-    parser.add_argument('-f', '--file', type=str, help='Filename')
+    parser.add_argument(
+        "-d",
+        "--directories",
+        nargs="+",
+        help="List of directories"
+    )
+    parser.add_argument("-f", "--file", type=str, help="Filename")
     args = parser.parse_args()
 
     path = create_path()
