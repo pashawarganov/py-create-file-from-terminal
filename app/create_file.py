@@ -32,7 +32,7 @@ def create_file(file_path: str) -> None:
     print("<<<File created>>>")
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-d",
@@ -47,3 +47,7 @@ if __name__ == "__main__":
 
     if args.file:
         create_file(path)
+
+
+if __name__ == "__main__":
+    main()
