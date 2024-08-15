@@ -1,20 +1,21 @@
+from __future__ import annotations
 import argparse
 from datetime import datetime
 import os
 
 
-def create_path() -> str:
-    if args.directories:
-        path_dir = os.path.join(*args.directories)
+def create_path(directories: list | None, filename: str | None) -> str:
+    if directories:
+        path_dir = os.path.join(*directories)
         try:
             os.makedirs(path_dir)
             print("<<<Directories created>>>")
         except FileExistsError:
             print("<<<Directories already exists>>>")
 
-        if args.file:
-            return os.path.join(path_dir, args.file)
-    return args.file
+        if filename:
+            return os.path.join(path_dir, filename)
+    return filename
 
 
 def create_file(file_path: str) -> None:
@@ -32,7 +33,7 @@ def create_file(file_path: str) -> None:
     print("<<<File created>>>")
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-d",
@@ -42,8 +43,8 @@ def main():
     )
     parser.add_argument("-f", "--file", type=str, help="Filename")
     args = parser.parse_args()
-
-    path = create_path()
+    print(args)
+    path = create_path(args.directories, args.file)
 
     if args.file:
         create_file(path)
