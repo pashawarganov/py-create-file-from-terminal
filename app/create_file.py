@@ -1,10 +1,9 @@
-from __future__ import annotations
 import argparse
 from datetime import datetime
 import os
 
 
-def create_path(directories: list | None, filename: str | None) -> str:
+def create_path(directories: list, filename: str) -> str:
     if directories:
         path_dir = os.path.join(*directories)
         os.makedirs(path_dir, exist_ok=True)
@@ -31,12 +30,10 @@ def make_content() -> list:
 def create_file(file_path: str) -> None:
     content = make_content()
     try:
-        user_file = open(file_path, "a")
-        user_file.writelines(content)
-    except Exception as e:
+        with open(file_path, "a") as user_file:
+            user_file.writelines(content)
+    except OSError as e:
         print(e)
-    finally:
-        user_file.close()
 
 
 def main() -> None:
@@ -51,8 +48,7 @@ def main() -> None:
     args = parser.parse_args()
     path = create_path(args.directories, args.file)
 
-    if args.file:
-        create_file(path)
+    create_file(path)
 
 
 if __name__ == "__main__":
